@@ -17,6 +17,39 @@ def _elavator(floor,num):
              print("_"* 6)
              
 
+# create a deck 
+Card = []
+numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
+cards = {'Red ':numbers,'Yellow ':numbers,'blue ':numbers,'green ':numbers}
+
+
+
+
+
+
+special_cards = []
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      c = "+2" + i
+      special_cards.append(c)
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      b = "REV_" + i
+      special_cards.append(b)
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+    b = "SKIP^" + i
+    special_cards.append(b)
+
+print(special_cards)
+#print(c)'''
+  
+   
+    #return n
+
+
+for k,v in cards.items():
+        for i in v:
+            a = [k , str(i)]
+            Card.append(a)
+
 
 
 user_name = input("Name: ")
