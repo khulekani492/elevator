@@ -57,6 +57,42 @@ num = int(input("Enter floor number: "))
 _elavator(levels,num)
 
 
+# create a deck 
+Card = []
+numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
+cards = {'Red ':numbers,'Yellow ':numbers,'blue ':numbers,'green ':numbers}
+
+
+
+
+
+
+special_cards = []
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      c = "+2" + i
+      special_cards.append(c)
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      b = "REV_" + i
+      special_cards.append(b)
+for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+    b = "SKIP^" + i
+    special_cards.append(b)
+
+
+  
+   
+    #return n
+
+
+for k,v in cards.items():
+        for i in v:
+            a = [k , str(i)]
+            Card.append(a)
+
+
+
+
+
 
 import random
 rng = random.Random()
@@ -97,9 +133,33 @@ rng.shuffle(Card)
 # Games main logic 
 Computer_hand = Card[1:8]
 players_hand = Card[8:15] 
+Discarded_pile = [Card[0]]
 
+'''
 
-print('computer hand ',Computer_hand)
-print('player_hand ',players_hand)
+#print('computer hand ',Computer_hand)
+#print('player_hand ',players_hand)
+#computer = random.choice(Computer_hand)
+#print(computer)
 
-Discarded_pile = []
+index = 0
+f =  Card[0] 
+while index < len(Card):
+    
+    
+    print(f, ' discarded ')
+    
+
+    print("Discarded_pile ",Discarded_pile)
+    print('From cards 1 to',len(players_hand))
+    print('Players hand',players_hand)
+
+    input_num= int(input('enter which to play:'))
+    for i in range(len(players_hand)):
+        if i == input_num:
+            indexed_card = players_hand[i]
+            players_card = indexed_card
+
+            Discarded_pile.append(players_card)
+      '''
+    
