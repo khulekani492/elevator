@@ -123,7 +123,3 @@ for i in range(len(players_hand)):
             choosen_card = players_hand[i]
             b = choosen_card
 print("Card choosen buy player", choosen_card)
-
-
-
-    
