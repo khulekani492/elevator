@@ -17,45 +17,12 @@ def _elavator(floor,num):
              print("_"* 6)
              
 
-# create a deck 
-Card = []
-numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
-cards = {'Red ':numbers,'Yellow ':numbers,'blue ':numbers,'green ':numbers}
-
-
-
-
-
-
-special_cards = []
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      c = "+2" + i
-      special_cards.append(c)
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      b = "REV_" + i
-      special_cards.append(b)
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-    b = "SKIP^" + i
-    special_cards.append(b)
-
-print(special_cards)
-#print(c)'''
-  
-   
-    #return n
-
-
-for k,v in cards.items():
-        for i in v:
-            a = [k , str(i)]
-            Card.append(a)
-
-
+# create a d
+#print(c)''#return n
 
 user_name = input("Name: ")
 num = int(input("Enter floor number: ")) 
 _elavator(levels,num)
-
 
 # create a deck 
 Card = []
@@ -99,26 +66,26 @@ rng = random.Random()
 # create a deck 
 Card = []
 numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
-cards = {'Red ':numbers,'Yellow ':numbers,'blue ':numbers,'green ':numbers}
+cards = {'RED':numbers,'YELLOW':numbers,'BLUE':numbers,'GREEN':numbers}
 
 special_cards = []
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      c = "+2" + i
+for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      c = ["+2",i]
       special_cards.append(c)
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      b = "REV_" + i
+for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+      b = ["REV_" ,i]
       special_cards.append(b)
-for i in ['Red','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-    b = "SKIP^" + i
+for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
+    b = ["SKIP^" , i]
     special_cards.append(b)
 
 for i in range(1,5):
-      wild_card = 'wild' + str(i)
+      wild_card = ['wild',str(i)]
       special_cards.append(wild_card)
 
 
 for i in range(1,5):
-      wild_card = 'wildraw' + str(i)
+      wild_card = ['wildraw',str(i)]
       special_cards.append(wild_card)
 for k,v in cards.items():
         for i in v:
@@ -129,37 +96,34 @@ Card.extend(special_cards)
 
 #shuffle_the_card 
 rng.shuffle(Card)
-#print((Card))
+
 # Games main logic 
-Computer_hand = Card[1:8]
-players_hand = Card[8:15] 
-Discarded_pile = [Card[0]]
+Computer_hand = Card[0:7] #After shuffling the deck I take the first 7 nested list and assign it to the computer hand
+#print('com hand', Computer_hand)
+players_hand = Card[7:14] #After shuffling the deck I take the new first 7 nested list and assign it to the players_hand
+del Card[0:15] # removing the cards from the Deck that have  been assigned to the players
 
-'''
 
-#print('computer hand ',Computer_hand)
-#print('player_hand ',players_hand)
-#computer = random.choice(Computer_hand)
-#print(computer)
 
-index = 0
-f =  Card[0] 
-while index < len(Card):
-    
-    
-    print(f, ' discarded ')
-    
 
-    print("Discarded_pile ",Discarded_pile)
-    print('From cards 1 to',len(players_hand))
-    print('Players hand',players_hand)
 
-    input_num= int(input('enter which to play:'))
-    for i in range(len(players_hand)):
-        if i == input_num:
-            indexed_card = players_hand[i]
-            players_card = indexed_card
+Computer = [random.choice(Computer_hand)]
+#Back_to_nest = [Computer] # when the random function takes a random next_list it no longer nested it must nested [[]] in order to compare it value
+Discarded_pile = [Card[0]] 
+#Nest_the_discpile = [Discarded_pile]
+user_input = int(input("Enter a number: "))
+print(b)
 
-            Discarded_pile.append(players_card)
-      '''
+print(Discarded_pile, ' Card on the table')
+print('Choose ',players_hand)
+                  
+
+for i in range(len(players_hand)):
+      if i == user_input:
+            choosen_card = players_hand[i]
+            b = choosen_card
+print("Card choosen buy player", choosen_card)
+
+
+
     
