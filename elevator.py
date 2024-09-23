@@ -24,6 +24,9 @@ user_name = input("Name: ")
 num = int(input("Enter floor number: ")) 
 _elavator(levels,num)
 
+
+
+
 # create a deck 
 
 Card = []
@@ -68,13 +71,13 @@ cards = {'RED':numbers,'YELLOW':numbers,'BLUE':numbers,'GREEN':numbers}
 
 special_cards = []
 for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      c = ["+2",i]
+      c = [i,"+2"]
       special_cards.append(c)
 for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-      b = ["REV_" ,i]
+      b = [i ,"REV_"]
       special_cards.append(b)
 for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
-    b = ["SKIP^" , i]
+    b = [i,"SKIP^"  ]
     special_cards.append(b)
 
 for i in range(1,5):
@@ -103,7 +106,6 @@ Computer_hand = Card[0:7] #After shuffling the deck I take the first 7 nested li
 players_hand = Card[7:14] #After shuffling the deck I take the new first 7 nested list and assign it to the players_hand
 del Card[0:15] # removing the cards from the Deck that have  been assigned to the players
 
-
 #Computer = [random.choice(Computer_hand)]
 #Back_to_nest = [Computer] # when the random function takes a random next_list it no longer nested it must nested [[]] in order to compare it value
 
@@ -118,7 +120,7 @@ for i in range(1,5):
       wild.append(wild_card)
 
 
-Discarded_pile = [Card[0]]
+Discarded_pile = Card[0]
 
 
 
@@ -154,48 +156,43 @@ else:
 #rint(Computer_hand,"Cards of the computer")
 
 def player_card(user_input):
-    global Discarded_pile
+    #global Discarded_pile
    
     for i in range(len(players_hand)):
           if i == user_input:
                choosen_card = players_hand[i]
-               Discarded_pile.append(choosen_card)
-               del players_hand[i] 
-               if Discarded_pile[0] ==choosen_card[0] or Discarded_pile[0][0] == choosen_card[0][0] or Discarded_pile[0][1] == choosen_card[0][1] or Discarded_pile[0][0] == choosen_card[0][1]:
-                   # Discarded_pile.append(choosen_card)
-                    
-                    
-                    return Discarded_pile
+              # Discarded_pile.append(choosen_card)
+              # del players_hand[i] 
+               
+               if Discarded_pile[0][0] == choosen_card[0][0] or Discarded_pile[0][1] == choosen_card[0][1] or Discarded_pile[0][0] == choosen_card[0][1]:
+                   Discarded_pile.append(choosen_card)
+                   del players_hand[i]
+                   return Discarded_pile
+               else:
+                    print('Card is not in the list')
 
-
+'''
 def Computer_card():
     global Discarded_pile
     for i in range(len(Computer_hand)):
         current = Computer_hand[i]
        
         
-        if Discarded_pile[0] == current[0] or Discarded_pile[0][0] == current[0][0] or Discarded_pile[0][1] == current[0][1] or Discarded_pile[0][0] == current[0][1]:
+        if Discarded_pile[0][0] == current[0][0] or Discarded_pile[0][1] == current[0][1] or Discarded_pile[0][0] == current[0][1]:
               Discarded_pile.append(current)
               del Computer_hand[i]
               
-              '''
-              print(Computer_hand,'current')
-              print(Discarded_pile)'''
-               
-              return Discarded_pile    #return current
               
-'''
-print('D',Discarded_pile)                 
-print(Computer_hand, ' hand')
-print(Computer_card())
-#print("cards left ", Computer_hand)    
-
-'''
+              print(Computer_hand,'current')
+              print(Discarded_pile)
+               
+              return current  #return current'''
+              
 index = 0
 
 while index < len(Card):
 
-      
+      start = 2
       if Discarded_pile != special_card_Removal() : 
          print( Discarded_pile)
       else:
@@ -205,20 +202,24 @@ while index < len(Card):
       
       player = player_card(user_input)
       print(player)
-      print(Discarded_pile, 'XX')
-      '''
-      replace_first__card = player[0]
-      Discarded_pile.remove(replace_first__card)
-
-      index += 1
-      #print(Discarded_pile)
+     
       
-      #move to the second element in the discarded pile
+      print(Computer_hand, 'Computer hand')
       
-      #Computer_card(Discarded_pile,index) 
-      # '''
+     #print(Discarded_pile[2][1],' First')
+      
+      for i in range(len(Computer_hand)):
+        current = [Computer_hand[i]]
+        #print(current)
+       # print(current[0][1] , ' POSITION')
+        if player[start][0] == current[0][0] or player[start][1] == current[0][1] or player[start][0] == current[0][1]:
+                  
+                  player.append(current)
+                  
+             # Discarded_pile.append(current)
+                  #print(player,' OG TALK')
+                  break 
+        start += 1
 
-  
-   
 
 
