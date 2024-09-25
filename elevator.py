@@ -81,7 +81,7 @@ for i in ['RED','RED','YELLOW','YELLOW','GREEN','GREEN','BLUE', 'BLUE']:
     special_cards.append(b)
 
 for i in range(1,5):
-      wild_card = ['wild',str(i)]
+      wild_card = ['wild','4']
       special_cards.append(wild_card) 
 
 
@@ -101,125 +101,195 @@ rng.shuffle(Card)
 
 # Games main logic 
 
-Computer_hand = Card[0:7] #After shuffling the deck I take the first 7 nested list and assign it to the computer hand
-
-players_hand = Card[7:14] #After shuffling the deck I take the new first 7 nested list and assign it to the players_hand
-del Card[0:15] # removing the cards from the Deck that have  been assigned to the players
-
-#Computer = [random.choice(Computer_hand)]
-#Back_to_nest = [Computer] # when the random function takes a random next_list it no longer nested it must nested [[]] in order to compare it value
-
-#print(Discarded_pile[0] == ['wild','1'] or Discarded_pile[0] == ['wild','2'] or Discarded_pile[0] == ['wild','3'] or Discarded_pile[0] == ['wild','4'] )
-
-
-# Separating the wild draw back from the deck to specify inside a function to remove it from discarded pile if it the first one turned
-
-wild = [[]]
-for i in range(1,5):
-      wild_card = 'wilddraw','4'
-      wild.append(wild_card)
-
-
-Discarded_pile = Card[0]
+Computer_hand = Card[:7] #After shuffling the deck I take the first 7 nested list and assign it to the computer hand
+del Card[7]
+players_hand = Card[8:15] #After shuffling the deck I take the new first 7 nested list and assign it to the players_hand
+del Card[:15] # removing the cards from the Deck that have  been assigned to the players
 
 
 
-#first_card = random.choice(Card)
+before_shuffle = Card
+
+Discarded_pile = [Card[0]]
+
+# Discarded assign bottom card
+del Card[0]
+#delete from the deck   
+base = "Bottom Card..."
+bottom_card = ['wilddraw','4'] #Discarded_pile[0]
+#print(base, bottom_card)
+def bottom():
+    global bottom_card
+    while bottom_card == ['wilddraw','4']:
+          rng.shuffle(before_shuffle)
+          bottom_card = before_shuffle[0]
+    return bottom_card
 
 
 
-def special_card_Removal():
-    #if Discarded_pile[0] ==['wild','1'] or Discarded_pile[0] == ['wild','2'] or Discarded_pile[0] == ['wild','3'] or Discarded_pile[0] == ['wild','4'] :
-          #Discarded_pile.remove(Discarded_pile[0])
-          global Discarded_pile
-          for i in range(len((wild))):
-                if wild[i] == Discarded_pile:
-                      return wild[i]
-                return [wild[1]]      
-              
-          
-          
-#print(special_card_Removal())
 
-
-'''
-if Discarded_pile != special_card_Removal() : 
-     print( Discarded_pile)
-else:
-     print(random.choice(Card))   
-
-#Nest_the_discpile = [Discarded_pile]'''
-
-
-#print('Choose ',players_hand)
-#print(Computer,"Computer choice ")                 
-#rint(Computer_hand,"Cards of the computer")
+def starting():
+     print('bottom..card',bottom())
+     # for player 1
+     print('Player hand ',players_hand)
+     take_or_play = input("Please enter Play to play or 'take' to draw a card from the Deck:\n")
+     
+     if take_or_play.lower() == 'play':
+        user_input = int(input("Please Enter a number: "))  
+        print(player_card(user_input))
+     elif take_or_play.lower() == 'take':
+           players_hand.append(random.choice(Card)) 
+           return "Card have been added ", players_hand
+     
 
 def player_card(user_input):
-    #global Discarded_pile
-   
-    for i in range(len(players_hand)):
-          if i == user_input:
-               choosen_card = players_hand[i]
-              # Discarded_pile.append(choosen_card)
-              # del players_hand[i] 
-               
-               if Discarded_pile[0][0] == choosen_card[0][0] or Discarded_pile[0][1] == choosen_card[0][1] or Discarded_pile[0][0] == choosen_card[0][1]:
-                   Discarded_pile.append(choosen_card)
-                   del players_hand[i]
-                   return Discarded_pile
-               else:
-                    print('Card is not in the list')
+     global bottom_card           
+     for i in range(len(players_hand)):
+            
+           if i == user_input:
+                  choosen_card = players_hand[i]
+                  if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[1] or choosen_card == ['wilddraw','4'] or choosen_card == ['wild','4']:
+                       
+                       bottom_card = choosen_card #switching the indexed position so bottom card get updated
+                       del players_hand[i]
+                       return bottom_card
+                  elif choosen_card == ['wildraw','4']:
+                        del players_hand[i]
+                        bottom_card = choosen_card
+                        #check if no alternative card exist in the play hand
+                        Computer_hand.append(Card[:4])
+                        return bottom_card, "Computer card has taked 4 cards" 
+                  elif choosen_card == ["wild",'4']:
+                        del players_hand[i]
+                        bottom_card = choosen_card
+                        asK_for_color = int(input("No way: y,g,r,b "))
+                        for i in ['YELLOW']:
+                              if asK_for_color == i:
+                                    bottom_card = asK_for_color
+                                    return bottom_card
+                            
+                  # for invalid move
+                  elif bottom_card[0] != choosen_card[0] or bottom_card[1] != choosen_card[1] or bottom_card[0] != ['wilddraw','4'] or bottom_card[0] != ['wild','4']:
+                        return starting()
+
 
 '''
-def Computer_card():
-    global Discarded_pile
-    for i in range(len(Computer_hand)):
-        current = Computer_hand[i]
-       
-        
-        if Discarded_pile[0][0] == current[0][0] or Discarded_pile[0][1] == current[0][1] or Discarded_pile[0][0] == current[0][1]:
-              Discarded_pile.append(current)
-              del Computer_hand[i]
-              
-              
-              print(Computer_hand,'current')
-              print(Discarded_pile)
+                  elif choosen_card == ['wild','4']:
+                    del players_hand[i]
+                    select_next_clr = input("Select a color [YELLOW ,BLUE, Green,blue] choose one ")
+                    upper_case = select_next_clr.upper()
+                    bottom_card = upper_case
+                    return bottom_card
                
-              return current  #return current'''
-              
-index = 0
+                  elif choosen_card == ['wilddraw','4']:
+                    for i in range(len(players_hand)):
+                        current = players_hand[i]
+                        #checking if the user has no alternative cards to play besides wildraw.4
+                        if bottom_card[0] != current[0] or bottom_card[1] != current[1]: 
+                            Computer_hand.append(Card[:4])
+                            return'Computer hand append by 4 cards ',Computer_hand
+                        else:
+                             players_hand.append(Card[:4])
+                             return' Player hand append by 4 cards ',players_hand
+                    
+               
+   
+                  else:
+                      
+                    return "_", bottom_card
+          
+                 '''
+print(starting())
+def Computer_card():
+    global bottom_card
+    for i in range(len(Computer_hand)):
+        choosen_card = Computer_hand[i]
 
-while index < len(Card):
-
-      start = 2
-      if Discarded_pile != special_card_Removal() : 
-         print( Discarded_pile)
+        if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[1] or bottom_card[0] == ['wilddraw','4'] or bottom_card[0] == ['wild','4']:
+                   del Computer_hand[i]
+                   bottom_card = choosen_card #switching the indexed position so bottom card get updated
+                   return bottom_card
+                   
+        elif choosen_card == ['wild','4']:
+                    del players_hand[i]
+                    select_next_clr = ["Yellow","BLUE","GREEN","RED"]
+                    rand_choice = random.choice(select_next_clr)
+                    upper_case = rand_choice.upper()
+                    bottom_card = upper_case
+                    return bottom_card  
+        else:
+             Computer_hand.append(random.choice(Card))
+       
+             return "Computer_hand takes one card ", random.choice(Card)
+'''        
+def valid_answer(choosen_card):
+      global bottom_card , user_input
+      if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[1] or bottom_card[0] == ['wilddraw','4'] or bottom_card[0] == ['wild','4']:
+           return True
       else:
-          print(random.choice(Card))  
-      print("Players cards ",players_hand)     
-      user_input = int(input("Enter a number: "))
+           return False
+
+def valid_input_play_take():
       
-      player = player_card(user_input)
-      print(player)
-     
-      
-      print(Computer_hand, 'Computer hand')
-      
-     #print(Discarded_pile[2][1],' First')
-      
-      for i in range(len(Computer_hand)):
-        current = [Computer_hand[i]]
-        #print(current)
-       # print(current[0][1] , ' POSITION')
-        if player[start][0] == current[0][0] or player[start][1] == current[0][1] or player[start][0] == current[0][1]:
-                  
-                  player.append(current)
-                  
-             # Discarded_pile.append(current)
-                  #print(player,' OG TALK')
-                  break 
-        start += 1
+         take_or_play = input("Please enter Play to play or 'take' to draw a card from the Deck: ")
+         return take_or_play
+  
+index = 0 
+while index < len(Card):   
+    if bottom_card == ['wilddraw','4']:
+        rng.shuffle(before_shuffle)
+        bottom_card = before_shuffle[0]
+        print(base,bottom_card)
+    else:
+        print(base,bottom_card)
+
+    print("Playerhand ",players_hand)
+    #take_or_play = input("Please enter Play to play or 'take' to draw a card from the Deck:\n")
+
+    if valid_input_play_take().lower() == 'play':
+        user_input = int(input("Please Enter a number: "))  
+        if valid_answer(player_card(user_input)) == True:
+             print(player_card(user_input))
+        else:
+             print("Please enter a valid card  or take from the deck if the playble card is not availble")
+             
+            #  if valid_input_play_take().lower() == 'play':
+            #       print("Choose a valid card (*^_^*) ", players_hand)
+            #       user_input = int(input("Please Enter a number: "))
+            #       if valid_answer(user_input) == True:
+            #            print(player_card(user_input))
+            #  elif valid_input_play_take().lower() == 'take':
+            #       players_hand.append(Card[0])
+            #       print("Player card added ", players_hand)
+            #       break
+             
+    
+    elif valid_input_play_take().lower() == 'take':
+          players_hand.append(random.choice(Card))
+          print("Player card append ", players_hand)
+    
+   
+   # print(player_card(user_input))
+
+    print("next turn....computer...")
+    if len(players_hand) == 0:
+         print("Player1 wins")
+         break
+    
+    
+    print("Computer turn ______\n")
+    print('Computer chose ',Computer_card())
+    print("Computerhand ", Computer_hand)
+
+    
+    print("next turn player")
+    if Computer_hand == 0:
+         print("Computer wins")
+         break
+
+    
+index += 1
+'''
 
 
 
