@@ -4,30 +4,17 @@
 
 
 
-levels = ['floor10','floor8','floor7','floor6','floor5','floor4','floor3','floor2','floor1',]
 
-
-def _elavator(floor,num):
-    for i in floor:
-        if int(i[5]) == num:
-             print(i,"(*_*)",f"{user_name}")
-             print("_" * 6)
-        else:
-             print(i)
-             print("_"* 6)
-             
-
-# create a d
-#print(c)''#return n
-
-user_name = input("Name: ")
-num = int(input("Enter floor number: ")) 
-_elavator(levels,num)
 
 
 
 
 # create a deck 
+
+from random import *
+import random
+
+rng = random.Random()
 
 Card = []
 numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
@@ -62,8 +49,7 @@ for k,v in cards.items():
 
 
 
-import random
-rng = random.Random()
+
 # create a deck 
 Card = []
 numbers = [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,]
@@ -107,40 +93,57 @@ players_hand = Card[8:15] #After shuffling the deck I take the new first 7 neste
 del Card[:15] # removing the cards from the Deck that have  been assigned to the players
 
 
-
 before_shuffle = Card
 
 Discarded_pile = [Card[0]]
+    
+bottom_card = Discarded_pile[0]
+
 
 # Discarded assign bottom card
 del Card[0]
 #delete from the deck   
 base = "Bottom Card..."
-bottom_card = ['wilddraw','4'] #Discarded_pile[0]
 #print(base, bottom_card)
+
 def bottom():
-    global bottom_card
-    while bottom_card == ['wilddraw','4']:
-          rng.shuffle(before_shuffle)
-          bottom_card = before_shuffle[0]
-    return bottom_card
+     global bottom_card
+     
+     
+     while bottom_card == ['wilddraw','4']:
+            rng.shuffle(before_shuffle)
+            bottom_card = before_shuffle[0]
+     return bottom_card
+
 
 
 
 
 def starting():
+     
      print('bottom..card',bottom())
-     # for player 1
-     print('Player hand ',players_hand)
-     take_or_play = input("Please enter Play to play or 'take' to draw a card from the Deck:\n")
+
+     print("\nPlayerhand ", players_hand) 
+     take_or_play = input("\nPlease enter Play to play or 'take' to draw a card from the Deck: ")
+
+     if take_or_play != 'play' and take_or_play != 'take':
+            return restart()
+     
+           
      
      if take_or_play.lower() == 'play':
-        user_input = int(input("Please Enter a number: "))  
-        print(player_card(user_input))
+        user_input = int(input("\nPlease Enter a number(press '8' to restart): "))  
+        print(player_card(user_input)) 
      elif take_or_play.lower() == 'take':
            players_hand.append(random.choice(Card)) 
-           return "Card have been added ", players_hand
+           print("\nCard have been added ", players_hand) 
      
+
+def restart():
+    print("\nPlay again ...")
+    starting()
+
+
 
 def player_card(user_input):
      global bottom_card           
@@ -148,30 +151,57 @@ def player_card(user_input):
             
            if i == user_input:
                   choosen_card = players_hand[i]
-                  if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[1] or choosen_card == ['wilddraw','4'] or choosen_card == ['wild','4']:
+                  if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[1] or bottom_card == ['wilddraw','4'] or bottom_card == ['wild','4']:
                        
                        bottom_card = choosen_card #switching the indexed position so bottom card get updated
                        del players_hand[i]
+                       if bottom_card == ['RED','REV_']or bottom_card == ['BLUE','REV_'] or bottom_card == ['YELLOW','REV_'] or bottom_card == ['GREEN','REV_']:
+                              del players_hand[i]
+                              return restart()
+                       if bottom_card == ['RED',"SKIP^" ] or bottom_card == ['BLUE','SKIP'] or bottom_card == ['YELLOW','SKIP^' ] or bottom_card == ['GREEN','SKIP^' ]:
+                              del players_hand[i]
+                              return restart()
+                       if bottom_card == ['RED','+2'] or bottom_card == ['GREEN','+2'] or bottom_card == ['YELLOW','+2'] or bottom_card == ['BLUE','+2']:
+                             
+                             bottom_card = choosen_card
+                             del players_hand[i]
+                        #check if no alternative card exist in the play hand
+                             Computer_hand.append(Card[:2])
+                             return "bottom ",bottom_card, " 2 cards added to computer" 
+                             
                        return bottom_card
+                  
+                        
                   elif choosen_card == ['wildraw','4']:
                         del players_hand[i]
                         bottom_card = choosen_card
                         #check if no alternative card exist in the play hand
                         Computer_hand.append(Card[:4])
-                        return bottom_card, "Computer card has taked 4 cards" 
+                        return "bottom ",bottom_card, " 4 cards added to computer" 
                   elif choosen_card == ["wild",'4']:
                         del players_hand[i]
                         bottom_card = choosen_card
-                        asK_for_color = int(input("No way: y,g,r,b "))
-                        for i in ['YELLOW']:
-                              if asK_for_color == i:
-                                    bottom_card = asK_for_color
-                                    return bottom_card
+                        user =  input("You played a wild4 ,Choose a color:  ")
+                        for i in ["YELLOW","BLUE","GREEN","RED"]:
+                              if i == user:
+                                  bottom_card = i
+                                  return "bottom card ", bottom_card
+               
+                  elif choosen_card == ['RED','REV_'] or choosen_card == ['BLUE','REV_'] or choosen_card == ['YELLOW','REV_'] or choosen_card == ['GREEN','REV_']:
+
+                         return "HEY HEY run"
+                  # elif choosen_card == ['RED',"SKIP^" ] or choosen_card == ['BLUE','SKIP'] or choosen_card == ['YELLOW','SKIP^' ] or choosen_card == ['GREEN','SKIP^' ]:
+                  #       return " So we skip"
                             
                   # for invalid move
-                  elif bottom_card[0] != choosen_card[0] or bottom_card[1] != choosen_card[1] or bottom_card[0] != ['wilddraw','4'] or bottom_card[0] != ['wild','4']:
-                        return starting()
-
+                  
+                  # elif bottom_card[0] != choosen_card[0] or bottom_card[1] != choosen_card[1] or bottom_card[0] != ['wilddraw','4'] or bottom_card[0] != ['wild','4']:
+                  #       return 'jjj'
+           elif user_input > 8:
+                 return "Invalid number your card of choice must be between (0-6)"
+           elif user_input == 8:
+                 return restart()
+                                           
 
 '''
                   elif choosen_card == ['wild','4']:
@@ -199,7 +229,8 @@ def player_card(user_input):
                     return "_", bottom_card
           
                  '''
-print(starting())
+starting()
+
 def Computer_card():
     global bottom_card
     for i in range(len(Computer_hand)):
@@ -290,6 +321,5 @@ while index < len(Card):
     
 index += 1
 '''
-
 
 
