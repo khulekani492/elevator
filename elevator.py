@@ -214,7 +214,7 @@ def Computer_card():
     for i in range(len(Computer_hand)):
         choosen_card = Computer_hand[i]
         
-        if bottom_card[0][0] == choosen_card[0][0] or bottom_card[0][1] == choosen_card[0][1] or choosen_card == ['wilddraw','4'] or choosen_card == ['wild','4']:
+        if bottom_card[0] == choosen_card[0] or bottom_card[1] == choosen_card[[1] or choosen_card == ['wilddraw','4'] or choosen_card == ['wild','4']:
                        
                        bottom_card = choosen_card #switching the indexed position so bottom card get updated
                        
