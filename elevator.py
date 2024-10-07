@@ -2,49 +2,54 @@
 #Aim manipulating strings based on the user input
 #Author Khulekani Zondo DAte :02 May 2022
 
-cash = {'R200':20000,'R100' : 10000,'R50': 5000, 'R20': 2000,'R10':1000,'R5':500,'R2':200, 'R1' :100 , '50c': 50,'20c':20,
-        '10c':10,'5c':5 }
+import unittest
+from units import convert
 
-amount_paid = 7000          #200
-amount_due =  5600
-change = amount_paid - amount_due
+class TestUnits(unittest.TestCase):
+    def test_three_units(self):
+        ratios = {
+            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
+            ("shneep", "glorp"): 60, # 60 shneeps = 1 glorp
+        }
 
-while True:
+        # 2 gleeps = 40 shneeps
+        self.assertEqual(convert(ratios, "gleep", "shneep", 2), 40)
 
-    for k, v in cash.items():
-        if change >= v :
-            change = change - v
-            print(k)
-            break
+    def test_impossible(self):
+        ratios = {
+            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
+            ("glarg", "toriver"): 70, # 70 glargs = 1 toriver
+        }
 
-    if change == 0:
-        break
+        # It's impossible to convert gleeps to torivers
+        self.assertIsNone(convert(ratios, "gleep", "toriver", 1))
 
-def change(amount_paid,amount_due):
-       cash = {'R200':20000,'R100' : 10000,'R50': 5000, 'R20': 2000,'R10':1000,'R5':500,'R2':200, 'R1' :100 , '50c': 50,'20c':20,
-        '10c':10,'5c':5 }
-       change = amount_paid - amount_due
+    def test_trivial(self):
+        ratios = {
+            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
+        }
 
-       denominations = []
-       while True:
-            for k, v in cash.items():
-                if change >= v :
-                    change = change - v
-                    denominations.append(k)
-                    break
-            if change == 0:
-              break 
-    
-       final_change = set(denominations)
+        # 6 gleeps = 2 glorps
+        self.assertEqual(convert(ratios, "gleep", "glorp", 6), 2)
 
-       # converting denomationations list to a dictionary, keys being the denomations and coins 
-       # the values are the number of times that denomationtions or coin appears
-       #in the list append in the while loop
-       #final_change = set(denominations)
+    def test_trivial_backwards(self):
+        ratios = {
+            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
+        }
 
-       denominations_dict = {}
-       for denomination in final_change:
-            denominations_dict[denomination] = denominations.count(denomination)
-       return denominations_dict
+        # 2 glorps = 6 gleeps
+        self.assertEqual(convert(ratios, "glorp", "gleep", 2), 6)
 
+if __name__ == '__main__':
+    unittest.main()
+
+
+def convert(ratios, from_unit, to_unit, value):
+    if from_unit == to_unit:
+        return value
+
+    if (from_unit, to_unit) in ratios:
+        return value / ratios[(from_unit, to_unit)]
+
+    return None
 
