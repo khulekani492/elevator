@@ -67,32 +67,60 @@ def convert(ratios, from_unit, to_unit, value):
     if (to_unit, from_unit) in ratios:
         return int(value * ratios[(to_unit, from_unit)])
     
+fw = open('example_file.txt','w')
+fw.write('Subject: Your account has been hacked !\n')
+fw.write('please send us your password so we can fix it .\n')
+fw.close()
 
-    for (unit1, unit2), ratio in ratios.items():
-        if from_unit in unit1:  # Try converting from `from_unit` to `unit2`
-            common_value = value / ratio
-            result = convert(ratios, unit2, to_unit, common_value)
-            return result
-        elif from_unit in unit2:  # Try converting from `from_unit` to `unit1`
-            common_value = value * ratio
-            result = convert(ratios, unit1, to_unit, common_value)
-            return result
- 
+with open('example_file.txt', 'r', errors='ignore') as f:
 
-
-    return None 
+    contents = f.read()
+   #print(contents)
+    f.close()
 
 
-ratios = {
-    ("gleep", "glorp"): 3,    # 3 gleeps = 1 glorp
-    ("gleep", "shneep"): 60,  # 3 gleeps  =  60 shneep
-    ("shneep", "glara") : 5,  # 60 shneep = 5 glara
-    ("glara", "rewodo") : 2,  # 5 glara = 2 rewodo
-}
 
-print(convert(ratios, "rewodo", "shneep", 5))  # Should give the correct result
-# ratios = {
-#             ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
+
+
+def spam_email(emial):
+    count = 0
+    search_for_semicolon = emial.find(':')
+    subject_line = emial[search_for_semicolon:].split('\n')[0]
+    
+    # print(subject_line[1] == ' ')
+    first_letter_is_capital = subject_line[1].isupper()
+    if first_letter_is_capital is True:
+        count +=  1
+
+    first_letter_is_capital = subject_line[2].isupper()
+    if first_letter_is_capital is True:
+        count +=  1 
+
+    symbols = list('!,:?.')
+    position = []
+    ix = 0
+    msg = ''
+    while ix < len(subject_line):
+        positioned = subject_line[ix]
+        if positioned == ' ':
+            next_index = ix + 1
+
+            next_position = subject_line[next_index]
+            if next_position in symbols:
+                return  
+        
+            
+               
+            
+        
+        ix += 1
+        
+
+    # return count 
+
+          
+        
+print(spam_email(contents))    
 #             ("shneep", "glorp"): 60, # 60 shneeps = 1 glorp
 #         }
 # print(convert(ratios, "gleep", "shneep", 2))
