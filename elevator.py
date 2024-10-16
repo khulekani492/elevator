@@ -122,6 +122,108 @@ def spam_email(emial):
         
 print(spam_email(contents))    
 #             ("shneep", "glorp"): 60, # 60 shneeps = 1 glorp
+
+
+from python_spell.checker import SpellChecker
+
+fw = open('example_file.txt','w')
+fw.write('Subject: your fjjk account has been hacked !\n')
+fw.write('please send us your password so we can fix it .\n')
+fw.close()
+
+
+
+with open("example_file.txt", 'r', errors='ignore') as f:
+
+    contents = f.read()
+    
+    #print(contents)
+    f.close()
+search_for_semicolon = contents.find(':')
+subject_line = contents.split('\n')[0]
+print(subject_line)
+#la
+ 
+# Reading from file
+len_file = 0
+CoList = contents.split("\n")
+ 
+for i in CoList:
+    if i:
+        len_file += 1
+
+
+
+spam_subjectline = ['account','compromised', 'personal','secure','Congratulations', 'won' , 'million',  'winner', 'send','credit','card',  'details', 'claim' , 'prize',
+                    'Investment','revenue', 'Click', 'link','more','confirm','Unsubscribe','Reply','Claim', 'winning', 'amount ','payment', 'Restricted','now','urgent ',
+                    'invoice','bank account','problem','fix', 'download', 'secure ',' great deal', ' handsome ', 'gorgeous', 'email verification ', 'special', 'password','hacked']
+
+
+def spam_email(emial):
+    count_ham = 0
+    count_spam = 0
+    search_for_semicolon = emial.find(':')
+
+    # checking if the first letter in the subject line is a capital letter
+    subject_line = emial[search_for_semicolon + 1].split('\n')[0]
+    return subject_line
+   
+    remove_white_spaces = subject_line.replace(" ","")
+    first_letter_is_capital = remove_white_spaces[0].isupper() 
+    
+    if first_letter_is_capital != False:
+        count_ham += 1
+    else:
+        count_spam += 1
+
+    
+   
+    #checking for typos inside the subject line
+    checker = SpellChecker(subject_line, "english")
+    check_text = checker.check()
+    if first_letter_is_capital != False:
+        count_ham += 1
+    else:
+        count_spam += 1
+    number_of_typos = len(check_text['misspelled_words'])
+
+    if number_of_typos >  0:
+        count_spam += number_of_typos
+        #return count_spam 
+
+    #checking if the subject line has any spam key word
+    for keyword in spam_subjectline:
+        if keyword.lower() in subject_line:
+            count_spam += 1
+    # check for generic greetings in body
+    lines = []
+    for line in range(1,len_file):
+        lines.append(emial.split('\n')[line])
+
+    for lin in lines:
+        remove_white_spacs = lin.replace(" ","")
+        first_letter = remove_white_spacs[0].isupper() 
+        if first_letter != False:
+           count_ham += 1
+        else:
+           count_spam += 1
+
+        checker_two = SpellChecker(subject_line, "english")
+        check_text_two = checker_two.check()
+        number_of_errors = len(check_text_two['misspelled_words'])
+        
+        if number_of_typos >  0:
+           count_spam += number_of_errors
+
+        
+    return remove_white_spaces
+
+    # return remove_white_spacs
+
+    
+print(spam_email(contents))
+
+
 #         }
 # print(convert(ratios, "gleep", "shneep", 2))
 
