@@ -79,38 +79,6 @@ with open('example_file.txt', 'r', errors='ignore') as f:
     f.close()
 
 
-
-
-
-def spam_email(emial):
-    count = 0
-    search_for_semicolon = emial.find(':')
-    subject_line = emial[search_for_semicolon:].split('\n')[0]
-    
-    # print(subject_line[1] == ' ')
-    first_letter_is_capital = subject_line[1].isupper()
-    if first_letter_is_capital is True:
-        count +=  1
-
-    first_letter_is_capital = subject_line[2].isupper()
-    if first_letter_is_capital is True:
-        count +=  1 
-
-    symbols = list('!,:?.')
-    position = []
-    ix = 0
-    msg = ''
-    while ix < len(subject_line):
-        positioned = subject_line[ix]
-        if positioned == ' ':
-            next_index = ix + 1
-
-            next_position = subject_line[next_index]
-            if next_position in symbols:
-                return  
-        
-            
-               
             
         
         ix += 1
@@ -118,32 +86,23 @@ def spam_email(emial):
 
     # return count 
 
-          
-        
-print(spam_email(contents))    
-#             ("shneep", "glorp"): 60, # 60 shneeps = 1 glorp
+  #from python_spell.checker import SpellChecker
+
+# fw = open('email.txt','w')
+# fw.write('Subject: Your account  has been hacked !\n')
+# fw.write('please send us your password so we can fix it .\n')
+# fw.write('please send us your password so we can fix it .\n')
 
 
-from python_spell.checker import SpellChecker
-
-fw = open('example_file.txt','w')
-fw.write('Subject: your fjjk account has been hacked !\n')
-fw.write('please send us your password so we can fix it .\n')
-fw.close()
+# fw.close()
 
 
 
-with open("example_file.txt", 'r', errors='ignore') as f:
+with open("email.txt", 'r', errors='ignore') as f:
 
     contents = f.read()
-    
-    #print(contents)
     f.close()
-search_for_semicolon = contents.find(':')
-subject_line = contents.split('\n')[0]
-print(subject_line)
-#la
- 
+
 # Reading from file
 len_file = 0
 CoList = contents.split("\n")
@@ -154,76 +113,86 @@ for i in CoList:
 
 
 
-spam_subjectline = ['account','compromised', 'personal','secure','Congratulations', 'won' , 'million',  'winner', 'send','credit','card',  'details', 'claim' , 'prize',
+
+spam = [ 'won' , 'million',  'winner', 'send','credit','card',  'details', 'claim' , 'prize','account'   'compromised', 'personal','secure','Congratulations',
                     'Investment','revenue', 'Click', 'link','more','confirm','Unsubscribe','Reply','Claim', 'winning', 'amount ','payment', 'Restricted','now','urgent ',
-                    'invoice','bank account','problem','fix', 'download', 'secure ',' great deal', ' handsome ', 'gorgeous', 'email verification ', 'special', 'password','hacked']
+                    'invoice','bank account','problem','fix', 'download', 'secure ',' great deal', ' handsome ', 'gorgeous', 'email verification ', 'special', 'password','hacked','@','#','$',"%", "^","&","*","(",")","-",
+                    " ",">","<","?","|","  ","??","hello", " ! !", "http:/",'sexy', 'free', 'spin',' spinning', 'true love',]
 
 
-def spam_email(emial):
-    count_ham = 0
-    count_spam = 0
-    search_for_semicolon = emial.find(':')
 
-    # checking if the first letter in the subject line is a capital letter
-    subject_line = emial[search_for_semicolon + 1].split('\n')[0]
-    return subject_line
+# def spam_email(emial):
+#     inside = 0
+#     count_spam = 0
+#     misspelled = []
+
    
-    remove_white_spaces = subject_line.replace(" ","")
-    first_letter_is_capital = remove_white_spaces[0].isupper() 
-    
-    if first_letter_is_capital != False:
-        count_ham += 1
-    else:
-        count_spam += 1
-
-    
-   
-    #checking for typos inside the subject line
-    checker = SpellChecker(subject_line, "english")
-    check_text = checker.check()
-    if first_letter_is_capital != False:
-        count_ham += 1
-    else:
-        count_spam += 1
-    number_of_typos = len(check_text['misspelled_words'])
-
-    if number_of_typos >  0:
-        count_spam += number_of_typos
-        #return count_spam 
-
-    #checking if the subject line has any spam key word
-    for keyword in spam_subjectline:
-        if keyword.lower() in subject_line:
-            count_spam += 1
-    # check for generic greetings in body
-    lines = []
-    for line in range(1,len_file):
-        lines.append(emial.split('\n')[line])
-
-    for lin in lines:
-        remove_white_spacs = lin.replace(" ","")
-        first_letter = remove_white_spacs[0].isupper() 
-        if first_letter != False:
-           count_ham += 1
-        else:
-           count_spam += 1
-
-        checker_two = SpellChecker(subject_line, "english")
-        check_text_two = checker_two.check()
-        number_of_errors = len(check_text_two['misspelled_words'])
+#     for line in range(len_file):
+         
+#          body_line = emial.split('\n')[line]
+#          split = body_line.split() 
+#          if body_line[0] == body_line.isupper():
+#              count_spam -= 1
+#          how_many = []
+#          for keyword in spam_subjectline:
+           
+#             if keyword.lower() in split:
+#                 how_many.append(keyword)
+#                 count_spam += 2
+             
+            
+#             if  len(split) >  5:
+#                 count_spam += 2
         
-        if number_of_typos >  0:
-           count_spam += number_of_errors
+       
+#          if count_spam > 1:
+#            return 'spam'
+#          else:
+#            return 'notspam'   
+         
+         
+     
+# print(spam_email(contents))
 
+# spam_subjectline ={'won': 2 , 'million':3,  :2, 'send':3,'credit':2,'card':3, 'details':3, 'claim':2 ,'account':3, 'compromised':2, 'personal':3,'secure':2,'Congratulations':3,
+#                     'Investment':4,'revenue':3, 'Click':3, 'link':2,'more':4,'confirm':3,'Reply':1,'Claim':3, 'winning':2, 'amount':3,'payment':2, 'Restricted':2,'now':3,'urgent ':4,
+#                     'invoice':2,'bank':3 ,'account':2,'problem':3,'fix':2, 'download':3, 'secure ':2,' great deal':3, 'handsome':4, 'gorgeous':2, 'email verification':3, 'special': 2, 'password': 3,'hacked':5,'!!': 4,
+#                     '@@': 2,'#':3,'$':4 ,"%": 1, "^": 2,"&": 3,"****": 2,
+#                     ">":2,"<":3,"?":1,"|":3,"??":2,"hello":4, "!!":2, "http:/": 2,'sexy':3, 'free':4, 'spin':4,' spinning':3,'true love':3,}
+
+# scam = ['hacked','win','claim','click','prize','Unsubscribe'] #
+
+
+# import string library function 
+import string 
+import re
+	
+# Storing the sets of punctuation in variable result 
+result = string.punctuation 
+	
+
+
+def check(email):
+    spam_count = 0
+    ham_count = 0
+    content = email
+    split_content = re.split(r'(\s+)',content)
+    for index in range(len(split_content)):
+        for pun in result:
+          if split_content[index] == pun: 
+            before = split_content[index - 1]
+            if before == ' ':
+                spam_count +=  1
+            
+        for i in result:
+           if i in  split_content[index]:
+              into_list = list(split_content[index])
+              if len(into_list) > 2:
+                 print(split_content[index])
+                 ham_count += 1
+
+  
+    print(spam_count)
+    print(ham_count)
         
-    return remove_white_spaces
-
-    # return remove_white_spacs
-
-    
-print(spam_email(contents))
-
-
-#         }
-# print(convert(ratios, "gleep", "shneep", 2))
 
