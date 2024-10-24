@@ -194,5 +194,56 @@ def check(email):
   
     print(spam_count)
     print(ham_count)
+
+non_spam = ['Market','Junior','Universit-y','Commissio-n','Microsoft','sure','Manager','Corporat-ion','Holder','Sep','Letter','Details','Staff','Trainee',
+            'Mar','Project','Naukri','General','National','2017','Unsubscribe','Mountain','Deputy','Life','Last','Application','Graduate','Degree',
+            'Reading','Date','Image','View','.Net','Office','2016','Research','United','Advt','Here','PST','Subscribed','Technician','Create','Technology'
+            ,'Assistant','India','Powered','Development','Core','Updated','Engineer','Options','ASP.NET','DATES','Votes','Votes','States','Singh',
+            'AM','Google','Torronto','State','IMPORTANT','Various','Bank','Form','Horoscope','Ghansham','Invites','Senior','Build','Multiple','Facebook',
+            'Officer','Code','August','News','Forwarded','Police','Ago','Institute','Client','Wipeout','Yesterday','Technical','Data','Blogs','Open',
+            'Entry','Official','Details','Executive','Tips','Stop','Group','Pradesh','Ontario','Operator','wrote ','Library ','Continue','Gmail'
+            ]
+def check(emial):
+    current_count = 0
+    two = 0
+    # for line in range(len_file):
+    #     body_line = emial.split('\n')[line]
+        # words_list = body_line.split()
+        # search_for_semicolon = emial.find(':')
+        # subject_line = emial[search_for_semicolon:].split('\n')[0]
+        # first_letter_is_capital = subject_line[1].isupper()
+        # if first_letter_is_capital is True:
+        #     two +=  1
+
+                  
+        # if '  ' in body_line:
+        #     current_count += 1
+        # # else:
+        # #      two += 1
+
+        # if "  !" in body_line or " !" in body_line:
+        #         current_count +=  25 #25
+        # if "  !" not in body_line or " !" not in body_line:
+        #          two += 1.9
+        # if"  ." in body_line or " ." in body_line:
+        #          current_count += 6
+        # if "  ." not in body_line or " ." not in body_line:
+        #          two += 1
+        # if"  ?" in body_line or " ?" in body_line:
+        #          current_count += 7.5
+        # if "  ?" not in body_line or " ?" not in body_line:
+        #          two += 1
+        
+     
+        # for word in words_list:
+        #       if word in scam:
+        #             current_count = 25 #60
+        #             scam.remove(word)
+     
+    # if current_count > two:
+    #      return 'spam'
+    # else:
+    #      return 'notspam'
+
         
 
