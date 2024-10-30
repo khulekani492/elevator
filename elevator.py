@@ -245,5 +245,59 @@ def check(emial):
     # else:
     #      return 'notspam'
 
+
+
+def is_password_secure(password):
+    pass_ = password
+    length = False
+    if len(pass_) < 8:
+            #length = True
+            return False
+
+
+    Capital = ''
+    upper = False
+    for word in password:
+          if word == word.upper():
+                Capital +=  word 
+
+    if len(Capital) == 0:
+            return False
+               #upper = True 
+   
+    low = ''
+    lower = False
+    for word in password:
+          if word == word.lower():
+                low +=  word 
+    if len(low) == 0:
+            return False
+                #lower = True 
+    
+    
+
+    digit = False
+    numbers = []
+    for num in password:
+          if num.isdigit():
+                numbers.append(num)
+               # digit = True 
+    if len(numbers) == 0:
+                return False
+     
+
+    special_ones = list('@!#$%^&*()_+=-}{|/<>')
+    chosen = False
+    spaces = []
+    for i in password:
+          if i in special_ones:
+                spaces.append(i)
+                #chosen = True
+    if len(spaces) == 0:
+           return False
+   
+                
+    return True             
+
         
 
