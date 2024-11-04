@@ -245,59 +245,27 @@ def check(emial):
     # else:
     #      return 'notspam'
 
+Move 10 meters forward
+Turn 90 degrees clockwise
+Move 5 meters forward
+Turn 90 degrees counterclockwise
+Move 10 meters forwardMove 10 meters forward
+Turn 90 degrees clockwise
+Move 5 meters forward
+Turn 90 degrees counterclockwise
+Move 10 meters forward
 
-
-def is_password_secure(password):
-    pass_ = password
-    length = False
-    if len(pass_) < 8:
-            #length = True
-            return False
-
-
-    Capital = ''
-    upper = False
-    for word in password:
-          if word == word.upper():
-                Capital +=  word 
-
-    if len(Capital) == 0:
-            return False
-               #upper = True 
-   
-    low = ''
-    lower = False
-    for word in password:
-          if word == word.lower():
-                low +=  word 
-    if len(low) == 0:
-            return False
-                #lower = True 
-    
-    
-
-    digit = False
-    numbers = []
-    for num in password:
-          if num.isdigit():
-                numbers.append(num)
-               # digit = True 
-    if len(numbers) == 0:
-                return False
-     
-
-    special_ones = list('@!#$%^&*()_+=-}{|/<>')
-    chosen = False
-    spaces = []
-    for i in password:
-          if i in special_ones:
-                spaces.append(i)
-                #chosen = True
-    if len(spaces) == 0:
-           return False
-   
-                
-    return True             
+I'm at (0, 0) facing 0 degrees
+Moving 10 meters forward (instruction 1)
+I'm at (0, 10) facing 0 degrees
+Turning 90 degrees clockwise (instruction 2)
+I'm at (0, 10) facing 90 degrees
+Moving 5 meters forward (instruction 3)
+I'm at (5, 10) facing 90 degrees
+Turning 90 degrees counterclockwise (instruction 4)
+I'm at (5, 10) facing 0 degrees
+Moving 10 meters forward (instruction 5)
+I'm at (5, 20) facing 0 degrees     
 
         
 
