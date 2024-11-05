@@ -267,5 +267,66 @@ I'm at (5, 10) facing 0 degrees
 Moving 10 meters forward (instruction 5)
 I'm at (5, 20) facing 0 degrees     
 
+
+
+fw = open('instruction.txt','w')
+fw.write("Move 10 meters forward\n")
+fw.write('Move 10 meters backward\n')
+fw.write('Turn Mars 90 degrees clockwise\n')
+fw.write('Turn Mars 90 degrees clockwise mnet\n')
+fw.write('lacking 90 degrees clockwise\n')
+fw.write('Turn 90 degrees clockwise\n')
+fw.close()
+
+with open("instruction.txt", 'r', errors='ignore') as f:
+     contents = f.read()
+commands = []
+for i in contents.split('\n'):
+     if i == '':
+          position = contents.find(i)
+          del contents.split('\n')[position]
+     else:
+         commands.append([i])
+import math
+legal_moves = ['move','turn','meters','forward','backward','clockwise','counterclockwise']
+valid_move = False
+#print(txt)
+def mars_rover(txt):
+    
+    command = txt.split('\n')
+    
+    for i in range(len(commands)):
+        current_command = command[i].lower().split()
+       
+        valid = current_command[0] == 'move' or current_command[0] == 'turn'
+        for word in current_command:
+             if word.lower() not in legal_moves:      
+               print(word)
+        if valid == False:
+             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(i))
+        elif len(current_command) > 4:
+             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(i))
+        else:
+             print(''.join(command[i]))
+        # if 'turn' != current_command[0] or 'move' != current_command[0]:
+        #      print(current_command) 
+        # print(current_command)
+            #  print("I've encountered an instruction I don't understand, aborting (instruction 3)")
+  
+        # for instruction in legal_commands:
+        #     if instruction in current_command:
+        #              print(instruction)
+        #              valid_move = True
+        #              break
         
+        # if valid_move is True:
+        #      xy = current_command
+        #      return xy
+
+#print(mars_rover(contents))
+x,y = 5,7
+angle = 67
+radian = math.radians(angle)
+print(x +(15 * math.cos(radian)))
+print(y + (15 * math.sin(radian)))
 
