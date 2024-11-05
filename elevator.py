@@ -245,37 +245,13 @@ def check(emial):
     # else:
     #      return 'notspam'
 
-Move 10 meters forward
-Turn 90 degrees clockwise
-Move 5 meters forward
-Turn 90 degrees counterclockwise
-Move 10 meters forwardMove 10 meters forward
-Turn 90 degrees clockwise
-Move 5 meters forward
-Turn 90 degrees counterclockwise
-Move 10 meters forward
-
-I'm at (0, 0) facing 0 degrees
-Moving 10 meters forward (instruction 1)
-I'm at (0, 10) facing 0 degrees
-Turning 90 degrees clockwise (instruction 2)
-I'm at (0, 10) facing 90 degrees
-Moving 5 meters forward (instruction 3)
-I'm at (5, 10) facing 90 degrees
-Turning 90 degrees counterclockwise (instruction 4)
-I'm at (5, 10) facing 0 degrees
-Moving 10 meters forward (instruction 5)
-I'm at (5, 20) facing 0 degrees     
-
-
+import math
 
 fw = open('instruction.txt','w')
 fw.write("Move 10 meters forward\n")
-fw.write('Move 10 meters backward\n')
-fw.write('Turn Mars 90 degrees clockwise\n')
-fw.write('Turn Mars 90 degrees clockwise mnet\n')
-fw.write('lacking 90 degrees clockwise\n')
 fw.write('Turn 90 degrees clockwise\n')
+fw.write('Move 5 meters forward\n')
+fw.write('Turn 90 degrees counter clockwise\n')
 fw.close()
 
 with open("instruction.txt", 'r', errors='ignore') as f:
@@ -287,27 +263,44 @@ for i in contents.split('\n'):
           del contents.split('\n')[position]
      else:
          commands.append([i])
-import math
+
 legal_moves = ['move','turn','meters','forward','backward','clockwise','counterclockwise']
 valid_move = False
 #print(txt)
 def mars_rover(txt):
-    
+    x,y = 0,0
+    angle = 0
+    #degrees = math.radians(angle)
+    radian = math.radians(angle)
+    print(f"I'm at ({x},{y}) facing {radian} degrees")
     command = txt.split('\n')
     
     for i in range(len(commands)):
         current_command = command[i].lower().split()
        
         valid = current_command[0] == 'move' or current_command[0] == 'turn'
-        for word in current_command:
-             if word.lower() not in legal_moves:      
-               print(word)
         if valid == False:
              print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(i))
         elif len(current_command) > 4:
              print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(i))
         else:
              print(''.join(command[i]))
+             if 'forward' in current_command or  'FORWARD' in current_command:
+                  meters = int(current_command[1])
+                 # y = int(meters)
+                  y += meters * math.cos(radian)
+                  print(f"I'm at {x, int(y)} facing {int(radian)} degrees")
+
+             elif 'backward' in current_command or  'BACkWARD' in current_command:
+                  meters = int(current_command[1])
+                 # y = int(meters)
+                  y -= meters * math.cos(radian)
+                  print(f"I'm at {x, int(y)} facing {int(radian)} degrees")
+             elif 'Turn' in current_command or 'turn' in current_command:
+                  angle = int(current_command[1])
+                  degrees = math.radians(angle)
+                  print(f"I'm at {x, int(y)} facing {angle} degrees")
+             print(angle)
         # if 'turn' != current_command[0] or 'move' != current_command[0]:
         #      print(current_command) 
         # print(current_command)
@@ -323,7 +316,7 @@ def mars_rover(txt):
         #      xy = current_command
         #      return xy
 
-#print(mars_rover(contents))
+print(mars_rover(contents))
 x,y = 5,7
 angle = 67
 radian = math.radians(angle)
