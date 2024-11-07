@@ -246,12 +246,24 @@ def check(emial):
     #      return 'notspam'
 import math
 import sys
+import turtle
+wn = turtle.Screen()
+wn.bgcolor('red')
+tess = turtle.Turtle()
+tess.penup()
+tess.shape("turtle")
+tess.color('blue')
+
 
 fw = open('instruction.txt','w')
 fw.write("Move 10 meters forward\n")
-fw.write('Move 10 meters backward\n')
-fw.write('Turn Mars 90 degrees clockwise\n')
+fw.write('Move 20 meters forward\n')
 fw.write('Turn 90 degrees clockwise\n')
+fw.write('Move 89 meters forward\n')
+fw.write('Turn 90 degrees clockwise\n')
+fw.write('Turn 90 degrees clockwise\n')
+fw.write('Move 70 meters forward\n')
+
 fw.close()
 
 with open("instruction.txt", 'r', errors='ignore') as f:
@@ -352,13 +364,15 @@ def mars_rover(txt):
 
              # prints the current position of the 
              print(f"I'm at {int(x), int(y)} facing {int(angle)} degrees")   
+             tess.setposition(x,y)
+             tess.goto(x,y)
+             tess.stamp()
+             
+             
+             
 
-
-if __name__ == "__main__":
-     if len(sys.argv) != 2:
-          print("Please enter the file path being processed")
-     else:
-         mars_rover(contents)
+mars_rover(contents)
+wn.mainloop()
 
 
 
