@@ -2,378 +2,306 @@
 #Aim manipulating strings based on the user input
 #Author Khulekani Zondo DAte :02 May 2022
 
-import unittest
-from units import convert
-
-class TestUnits(unittest.TestCase):
-    def test_three_units(self):
-        ratios = {
-            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
-            ("shneep", "glorp"): 60, # 60 shneeps = 1 glorp
-        }
-
-        # 2 gleeps = 40 shneeps
-        self.assertEqual(convert(ratios, "gleep", "shneep", 2), 40)
-
-    def test_impossible(self):
-        ratios = {
-            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
-            ("glarg", "toriver"): 70, # 70 glargs = 1 toriver
-        }
-
-        # It's impossible to convert gleeps to torivers
-        self.assertIsNone(convert(ratios, "gleep", "toriver", 1))
-
-    def test_trivial(self):
-        ratios = {
-            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
-        }
-
-        # 6 gleeps = 2 glorps
-        self.assertEqual(convert(ratios, "gleep", "glorp", 6), 2)
-
-    def test_trivial_backwards(self):
-        ratios = {
-            ("gleep", "glorp"): 3, # 3 gleeps = 1 glorp
-        }
-
-        # 2 glorps = 6 gleeps
-        self.assertEqual(convert(ratios, "glorp", "gleep", 2), 6)
-
-if __name__ == '__main__':
-    unittest.main()
 
 
-def convert(ratios, from_unit, to_unit, value):
-    if from_unit == to_unit:
-        return value
+# with open('puzzle.txt','r') as file:
 
-    if (from_unit, to_unit) in ratios:
-        return value / ratios[(from_unit, to_unit)]
+#     thefile = file.readlines()
 
-    return None
+# valid_num = ['1','2','3','4','5','6','7','8','9']
+# lines_from_file = []
+# to_list = []
+# horizotal= []
+# straight = [] 
+
+# for i in thefile:
+#     lines_from_file.append(i.replace('\n','').replace(' ',''))
 
 
-def convert(ratios, from_unit, to_unit, value):
-
-
-
-    if from_unit == to_unit:
-        return value
-
-    if (from_unit, to_unit) in ratios:
-        return  int(value / ratios[(from_unit, to_unit)])
- 
-    if (to_unit, from_unit) in ratios:
-        return int(value * ratios[(to_unit, from_unit)])
+# for line in lines_from_file:
     
-fw = open('example_file.txt','w')
-fw.write('Subject: Your account has been hacked !\n')
-fw.write('please send us your password so we can fix it .\n')
-fw.close()
+#     to_list.append(list(line))
 
-with open('example_file.txt', 'r', errors='ignore') as f:
+# # Convert each string to an integer
+# int_board = [[int(num) for num in row] for row in to_list]
+# baord = int_board
 
-    contents = f.read()
-   #print(contents)
-    f.close()
+# #print(to_list)
+# # for line in to_list:
+# #     print(line)
+# # print("_______________________________________")
 
-
-            
-        
-        ix += 1
-        
-
-    # return count 
-
-  #from python_spell.checker import SpellChecker
-
-# fw = open('email.txt','w')
-# fw.write('Subject: Your account  has been hacked !\n')
-# fw.write('please send us your password so we can fix it .\n')
-# fw.write('please send us your password so we can fix it .\n')
-
-
-# fw.close()
-
-
-
-with open("email.txt", 'r', errors='ignore') as f:
-
-    contents = f.read()
-    f.close()
-
-# Reading from file
-len_file = 0
-CoList = contents.split("\n")
- 
-for i in CoList:
-    if i:
-        len_file += 1
-
-
-
-
-spam = [ 'won' , 'million',  'winner', 'send','credit','card',  'details', 'claim' , 'prize','account'   'compromised', 'personal','secure','Congratulations',
-                    'Investment','revenue', 'Click', 'link','more','confirm','Unsubscribe','Reply','Claim', 'winning', 'amount ','payment', 'Restricted','now','urgent ',
-                    'invoice','bank account','problem','fix', 'download', 'secure ',' great deal', ' handsome ', 'gorgeous', 'email verification ', 'special', 'password','hacked','@','#','$',"%", "^","&","*","(",")","-",
-                    " ",">","<","?","|","  ","??","hello", " ! !", "http:/",'sexy', 'free', 'spin',' spinning', 'true love',]
-
-
-
-# def spam_email(emial):
-#     inside = 0
-#     count_spam = 0
-#     misspelled = []
-
-   
-#     for line in range(len_file):
-         
-#          body_line = emial.split('\n')[line]
-#          split = body_line.split() 
-#          if body_line[0] == body_line.isupper():
-#              count_spam -= 1
-#          how_many = []
-#          for keyword in spam_subjectline:
-           
-#             if keyword.lower() in split:
-#                 how_many.append(keyword)
-#                 count_spam += 2
-             
-            
-#             if  len(split) >  5:
-#                 count_spam += 2
-        
-       
-#          if count_spam > 1:
-#            return 'spam'
-#          else:
-#            return 'notspam'   
-         
-         
-     
-# print(spam_email(contents))
-
-# spam_subjectline ={'won': 2 , 'million':3,  :2, 'send':3,'credit':2,'card':3, 'details':3, 'claim':2 ,'account':3, 'compromised':2, 'personal':3,'secure':2,'Congratulations':3,
-#                     'Investment':4,'revenue':3, 'Click':3, 'link':2,'more':4,'confirm':3,'Reply':1,'Claim':3, 'winning':2, 'amount':3,'payment':2, 'Restricted':2,'now':3,'urgent ':4,
-#                     'invoice':2,'bank':3 ,'account':2,'problem':3,'fix':2, 'download':3, 'secure ':2,' great deal':3, 'handsome':4, 'gorgeous':2, 'email verification':3, 'special': 2, 'password': 3,'hacked':5,'!!': 4,
-#                     '@@': 2,'#':3,'$':4 ,"%": 1, "^": 2,"&": 3,"****": 2,
-#                     ">":2,"<":3,"?":1,"|":3,"??":2,"hello":4, "!!":2, "http:/": 2,'sexy':3, 'free':4, 'spin':4,' spinning':3,'true love':3,}
-
-# scam = ['hacked','win','claim','click','prize','Unsubscribe'] #
-
-
-# import string library function 
-import string 
-import re
-	
-# Storing the sets of punctuation in variable result 
-result = string.punctuation 
-	
-
-
-def check(email):
-    spam_count = 0
-    ham_count = 0
-    content = email
-    split_content = re.split(r'(\s+)',content)
-    for index in range(len(split_content)):
-        for pun in result:
-          if split_content[index] == pun: 
-            before = split_content[index - 1]
-            if before == ' ':
-                spam_count +=  1
-            
-        for i in result:
-           if i in  split_content[index]:
-              into_list = list(split_content[index])
-              if len(into_list) > 2:
-                 print(split_content[index])
-                 ham_count += 1
-
-  
-    print(spam_count)
-    print(ham_count)
-
-non_spam = ['Market','Junior','Universit-y','Commissio-n','Microsoft','sure','Manager','Corporat-ion','Holder','Sep','Letter','Details','Staff','Trainee',
-            'Mar','Project','Naukri','General','National','2017','Unsubscribe','Mountain','Deputy','Life','Last','Application','Graduate','Degree',
-            'Reading','Date','Image','View','.Net','Office','2016','Research','United','Advt','Here','PST','Subscribed','Technician','Create','Technology'
-            ,'Assistant','India','Powered','Development','Core','Updated','Engineer','Options','ASP.NET','DATES','Votes','Votes','States','Singh',
-            'AM','Google','Torronto','State','IMPORTANT','Various','Bank','Form','Horoscope','Ghansham','Invites','Senior','Build','Multiple','Facebook',
-            'Officer','Code','August','News','Forwarded','Police','Ago','Institute','Client','Wipeout','Yesterday','Technical','Data','Blogs','Open',
-            'Entry','Official','Details','Executive','Tips','Stop','Group','Pradesh','Ontario','Operator','wrote ','Library ','Continue','Gmail'
-            ]
-def check(emial):
-    current_count = 0
-    two = 0
-    # for line in range(len_file):
-    #     body_line = emial.split('\n')[line]
-        # words_list = body_line.split()
-        # search_for_semicolon = emial.find(':')
-        # subject_line = emial[search_for_semicolon:].split('\n')[0]
-        # first_letter_is_capital = subject_line[1].isupper()
-        # if first_letter_is_capital is True:
-        #     two +=  1
-
-                  
-        # if '  ' in body_line:
-        #     current_count += 1
-        # # else:
-        # #      two += 1
-
-        # if "  !" in body_line or " !" in body_line:
-        #         current_count +=  25 #25
-        # if "  !" not in body_line or " !" not in body_line:
-        #          two += 1.9
-        # if"  ." in body_line or " ." in body_line:
-        #          current_count += 6
-        # if "  ." not in body_line or " ." not in body_line:
-        #          two += 1
-        # if"  ?" in body_line or " ?" in body_line:
-        #          current_count += 7.5
-        # if "  ?" not in body_line or " ?" not in body_line:
-        #          two += 1
-        
-     
-        # for word in words_list:
-        #       if word in scam:
-        #             current_count = 25 #60
-        #             scam.remove(word)
-     
-    # if current_count > two:
-    #      return 'spam'
-    # else:
-    #      return 'notspam'
-import math
-import sys
-import turtle
-wn = turtle.Screen()
-wn.bgcolor('red')
-tess = turtle.Turtle()
-tess.penup()
-tess.shape("turtle")
-tess.color('blue')
-
-
-fw = open('instruction.txt','w')
-fw.write("Move 10 meters forward\n")
-fw.write('Move 20 meters forward\n')
-fw.write('Turn 90 degrees clockwise\n')
-fw.write('Move 89 meters forward\n')
-fw.write('Turn 90 degrees clockwise\n')
-fw.write('Turn 90 degrees clockwise\n')
-fw.write('Move 70 meters forward\n')
-
-fw.close()
-
-with open("instruction.txt", 'r', errors='ignore') as f:
-     contents = f.read()
-commands = []
-for i in contents.split('\n'):
-     if i == '':
-          position = contents.find(i)
-          del contents.split('\n')[position]
-     else:
-         commands.append([i])
-
-
-legal_moves = ['move','turn','meters','forward','backward','clockwise','counterclockwise','degrees']
-
-#search if words inside the instruction are all valid
-def all_valid(current):
-    state = True
-    sec_state = True
-    for i in current.lower().split():
-         if i.isdigit():
-              sec_state
-         if i not in legal_moves:
-              if i.isdigit():
-                  state = True
-              else:
-                  state = False     
-    return state
-
-
-
-def mars_rover(txt):
-    # initialize x,y , angle and count to keep track of the instructions to zero
-    x,y ,angle,count= 0,0,0,0
-    radian = math.radians(angle) # convert the angle to radians to get the accurate answer as in a calculator 
-    # Defualt position of the rover
-    print(f"I'm at ({x},{y}) facing {int(radian)} degrees")
-
-    #split the instruction by new lines
-    command = txt.split('\n')
-    
-    for i in range(len(commands)):
-        count += 1
-        current_command = command[i].lower().split()
-        # boolean values the evaluate if the words in each indexes are valid 
-        valid = current_command[0] == 'move' or current_command[0] == 'turn'
-        number = current_command[1].isdigit()
-        second = current_command[2] == 'degrees' or current_command[2] == 'meters'
-        
-        third = current_command[3] == 'forward' or current_command[3] == 'backward' or current_command[3] == 'clockwise' or current_command[3] == 'counterclockwise'
-        if valid == False:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(count))
-             break
-        elif len(current_command) > 4:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(count))
-             break
-        elif all_valid == False:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(count))
-             break  
-        elif number == False:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(count))
-             break 
-        elif second == False:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(count))
-             break 
-        elif third == False:
-             print("I've encountered an instruction I don't understand, aborting (instruction {0})".format(i))
-             break 
-        else:
-            # assess each line looking for instruction whether to move or turn , perfoming the caculations and updating the X and y
-
-             radian = math.radians(angle)
-             if 'forward' in current_command :
-                 
-                  meters = int(current_command[1])
-                  print(f'Moving {meters} meters forward (instruction {count})')
-          
-                  x += meters * math.sin(radian)
-                  y += meters * math.cos(radian)
-              
-
-             if 'backward' in current_command:
-                  meters = int(current_command[1])
-                  x -= meters * math.sin(radian)
-                  y -= meters * math.cos(radian)
-                  print(f'Moving {meters} meters backward (instruction {count})')
-
-             if 'turn' in current_command : 
-                  if 'clockwise' == current_command[-1]:
-                       print(f'Turning {angle} degrees clockwise (instruction {count})') 
-                       angle += int(current_command[1]) % 360
-
-                  elif 'counterclockwise' == current_command[-1]:
-                       angle -= int(current_command[1]) % 360 
-                       print(f'Turning {angle} degrees counterclockwise (instruction {count})') 
+# #                 # for x in range(2):
+# #                 #      current.append(to_list[line][i + x])
+# #                 # find_sub_first_row.append(current)
                 
-                   
+        
+# # # print(find_sub_first_ro
 
-             # prints the current position of the 
-             print(f"I'm at {int(x), int(y)} facing {int(angle)} degrees")   
-             tess.setposition(x,y)
-             tess.goto(x,y)
-             tess.stamp()
-             
-             
-             
+# # def sub(board=to_list):
 
-mars_rover(contents)
-wn.mainloop()
+# #     coord = [(0,0), (0, 3), (0, 6),
+# #              (3, 0), (3, 3), (3, 6),
+# #              (6, 0), (6, 3), (6, 6)]
+    
+# #     results = []
 
+# #     for row, col in coord:
+# #         sub_grid = []
+
+# #         for i in range(3):
+# #             roww = []
+# #             for j in range(3):
+# #                 roww.append(board[row + i][col + j])
+# #             sub_grid.append(roww)
+# #         results.append(sub_grid)
+
+# #     return results 
+
+# # print(sub())
+# # available = []
+# # for s in sub():
+# #     for row in range(3):
+# #         print(s[row]) 
+# #         current = s[row]
+# #         for n in valid_num:
+# #             if n in current:
+# #                 available.append(n)
+# #         for x in available:
+# #             if x in to_list:
+# #                 print(row)
+                
+   
+# #         for indexes in range(len(current)):
+# #             if current[indexes] == '0':
+# #                 print(indexes) #take the index go to your board and return the table going down 
+                 
+                        
+# #     break
+# # possible_play = []    
+# # #print(available)
+# # for n in valid_num:
+# #     if n not in available:
+# #         possible_play.append(n)
+
+# # print(possible_play,' possible moves')
+# # # let take possible moves 
+# # # check the row of each nested list 
+
+
+# with open('puzzle.txt','r') as file:
+
+#     thefile = file.readlines()
+
+# valid_num = ['1','2','3','4','5','6','7','8','9']
+# lines_from_file = []
+# to_list = []
+# horizotal= []
+# straight = [] 
+
+# for i in thefile:
+#     lines_from_file.append(i.replace('\n','').replace(' ',''))
+
+
+# for line in lines_from_file:
+    
+#     to_list.append(list(line))
+
+# # Convert each string to an integer
+# int_board = [[int(num) for num in row] for row in to_list]
+# baord = int_board
+
+# def blank_space(board):
+#     #finding an empty space and return it index row,cell the row being the nested list the cell being the position inside the nested list
+#     for row in range(9):
+#         for cell in range(9):
+#             if board[row][cell] == 0 :
+#                 return row,cell
+#     return None ,None
+
+# def valid_n(board,guess,row,cell):
+#     row_values = board[row]
+#     if guess in row_values:
+#         return False
+#     # cells_values = []
+    
+#     # for i in range(9):
+#     #     cells_values(board[i][cell])
+#     cell_values = [board[i][cell] for i in range(9)]
+#     if guess in cell_values:
+#         return False
+#     row_start = (row // 3) * 3
+#     cell_start = (cell // 3) * 3
+#     for r in range(row_start, row_start + 3):
+#        for c in range(cell_start, cell_start + 3):
+#           if board[r][c] == guess:
+#             return False
+#     return True
+
+# def solve_suduko(board):
+#     row,cell = blank_space(board)
+ 
+#     if row is None:
+#         return True
+#     # a guess from 1 , 9
+#     for guess in range(1,10):
+#         if valid_n(board,guess,row,cell):
+#             board[row][cell] = guess
+            
+#             # call the function 
+#             if solve_suduko(board):
+#                 return True
+#     #backtracking  replacing the number back to zero
+#         board[row][cell] = 0 
+
+#     #if no solution found
+#         return False
+# solve_suduko(int_board)
+# # how to return the solved board on your terminal
+# def print_board(board):
+#     """Print the Sudoku board in a readable format."""
+#     for row in board:
+#         print(" ".join(str(num) for num in row))
+
+# # Solve the Sudoku puzzle
+# if solve_suduko(int_board):
+#     print("Solved Sudoku Board:")
+#     print_board(int_board)
+# else:
+#     print("No solution exists for the given Sudoku puzzle.")
+
+import sys 
+
+def blank_space(board):
+    """Find an empty space on the board."""
+    for row in range(9):
+        for cell in range(9):
+            if board[row][cell] == 0:
+                return row, cell
+    return None, None
+
+
+def valid_n(board, guess, row, cell):
+    """Check if the guess is valid for the given cell."""
+    # Check the row
+    if guess in board[row]:
+        return False
+
+    # Check the column
+    cell_values = [board[i][cell] for i in range(9)]
+    if guess in cell_values:
+        return False
+
+    # Check the 3x3 grid
+    row_start = (row // 3) * 3
+    cell_start = (cell // 3) * 3
+    for r in range(row_start, row_start + 3):
+        for c in range(cell_start, cell_start + 3):
+            if board[r][c] == guess:
+                return False
+
+    return True
+steps = []
+
+def solve_sudoku(board):
+    """Solve the Sudoku puzzle using backtracking."""
+       
+    row, cell = blank_space(board)
+
+    # If no empty space, the board is solved
+    if row is None:
+        return True
+
+    # Try all numbers from 1 to 9
+    for guess in range(1, 10):
+        if valid_n(board, guess, row, cell):
+            board[row][cell] = guess
+            steps.append(f"Trying {guess} at ({row}, {cell})")
+            # Recursively try to solve the board
+            if solve_sudoku(board):
+                return True
+
+            # Backtrack
+            print(f"Backtracking at ({row}, {cell})")
+            board[row][cell] = 0
+
+    # If no valid number works, return False
+    return False
+
+
+def print_board(board):
+    """Print the Sudoku board in a readable format."""
+    for row in board:
+        print(" ".join(str(num) for num in row))
+
+
+# Input Sudoku board
+board = [
+    [9, 6, 2, 0, 7, 8, 5, 0, 0],
+    [1, 0, 5, 0, 0, 9, 3, 0, 0],
+    [3, 0, 0, 0, 0, 0, 8, 2, 0],
+    [0, 0, 1, 0, 0, 0, 0, 7, 0],
+    [6, 0, 0, 0, 5, 0, 0, 0, 8],
+    [0, 0, 0, 6, 0, 3, 9, 0, 5],
+    [0, 1, 8, 0, 0, 5, 0, 0, 0],
+    [0, 0, 6, 8, 3, 2, 7, 0, 1],
+    [7, 5, 3, 1, 9, 0, 4, 8, 0]
+]
+
+# Solve the Sudoku puzzle
+if solve_sudoku(board):
+    print("Solved Sudoku Board:")
+    print_board(board)
+else:
+    print("No solution exists for the given Sudoku puzzle.")
+
+def main():
+    """Main function to read input, solve the puzzle, and write output."""
+    # Get command-line arguments
+    if len(sys.argv) != 4:
+        print("Usage: python solve.py path/to/puzzle.txt -o path/to/solved_puzzle.txt")
+        return
+
+    input_file = sys.argv[1]
+    output_flag = sys.argv[2]
+    output_file = sys.argv[3]
+
+    if output_flag != "-o":
+        print("Invalid flag. Use -o to specify the output file.")
+        return
+
+    # Read the board from the input file
+    try:
+        with open(input_file, "r") as file:
+            lines = file.readlines()
+        board = [[int(num) for num in line.strip().split()] for line in lines]
+    except Exception as e:
+        print(f"Error reading input file: {e}")
+        return
+
+    # Ensure the board is valid
+    if len(board) != 9 or not all(len(row) == 9 for row in board):
+        print("Invalid board format. Ensure the board is a 9x9 grid.")
+        return
+
+    # Solve the puzzle
+    
+    if solve_sudoku(board, steps):
+        result = "Solved Sudoku Board:\n" + print_board(board)
+    else:
+        result = "No solution exists for the given Sudoku puzzle."
+
+    # Write the result and steps to the output file
+    try:
+        with open(output_file, "w") as file:
+            file.write("\n".join(steps) + "\n\n" + result)
+        print(f"Steps and solved board written to {output_file}")
+    except Exception as e:
+        print(f"Error writing to output file: {e}")
+
+
+if __name__ == "__main__":
+    main()
 
 
 
