@@ -170,8 +170,6 @@
 # else:
 #     print("No solution exists for the given Sudoku puzzle.")
 
-import sys 
-
 def blank_space(board):
     """Find an empty space on the board."""
     for row in range(9):
@@ -181,59 +179,61 @@ def blank_space(board):
     return None, None
 
 
-def valid_n(board, guess, row, cell):
+def valid_n(board,  row, cell):
     """Check if the guess is valid for the given cell."""
-    # Check the row
-    if guess in board[row]:
-        return False
+    numbers = [1,2,3,4,5,6,7,8,9]
+    candidates = board[row][cell] = set()
 
+    rw = []
+    
     # Check the column
     cell_values = [board[i][cell] for i in range(9)]
-    if guess in cell_values:
-        return False
+    
+    for n in numbers:
+         if n not in cell_values and n not in board[row]:
+             candidates.add(n)
+    
 
     # Check the 3x3 grid
+    subgrid = []
     row_start = (row // 3) * 3
-    cell_start = (cell // 3) * 3
+    cell_start = (cell // 3) * 3    
     for r in range(row_start, row_start + 3):
         for c in range(cell_start, cell_start + 3):
-            if board[r][c] == guess:
-                return False
-
-    return True
+            for n in numbers:
+               if n not in cell_values and n not in board[row] and n != board[r][c]:
+                   
+                   candidates.add(n)
+                    
+    return candidates
 steps = []
+
 
 def solve_sudoku(board):
     """Solve the Sudoku puzzle using backtracking."""
        
     row, cell = blank_space(board)
-
     # If no empty space, the board is solved
     if row is None:
         return True
 
     # Try all numbers from 1 to 9
-    for guess in range(1, 10):
-        if valid_n(board, guess, row, cell):
-            board[row][cell] = guess
-            steps.append(f"Trying {guess} at ({row}, {cell})")
+    
+    board[row][cell] = valid_n(board,row,cell)
             # Recursively try to solve the board
-            if solve_sudoku(board):
-                return True
 
+    for i in range(1):
+        solve_sudoku(board).py
+    return board.py
             # Backtrack
-            print(f"Backtracking at ({row}, {cell})")
-            board[row][cell] = 0
-
-    # If no valid number works, return False
+    # If no valid number works, return False.py
     return False
-
+.py
 
 def print_board(board):
     """Print the Sudoku board in a readable format."""
     for row in board:
         print(" ".join(str(num) for num in row))
-
 
 # Input Sudoku board
 board = [
@@ -249,30 +249,16 @@ board = [
 ]
 
 # Solve the Sudoku puzzle
-if solve_sudoku(board):
-    print("Solved Sudoku Board:")
-    print_board(board)
-else:
-    print("No solution exists for the given Sudoku puzzle.")
+
 
 def main():
     """Main function to read input, solve the puzzle, and write output."""
     # Get command-line arguments
-    if len(sys.argv) != 4:
-        print("Usage: python solve.py path/to/puzzle.txt -o path/to/solved_puzzle.txt")
-        return
-
-    input_file = sys.argv[1]
-    output_flag = sys.argv[2]
-    output_file = sys.argv[3]
-
-    if output_flag != "-o":
-        print("Invalid flag. Use -o to specify the output file.")
-        return
+    
 
     # Read the board from the input file
     try:
-        with open(input_file, "r") as file:
+        with open('puzzle.txt', "r") as file:
             lines = file.readlines()
         board = [[int(num) for num in line.strip().split()] for line in lines]
     except Exception as e:
@@ -280,28 +266,17 @@ def main():
         return
 
     # Ensure the board is valid
+    # Solve the puzzle
+main()
+
+
+print(solve_sudoku(board))
+
+
     if len(board) != 9 or not all(len(row) == 9 for row in board):
         print("Invalid board format. Ensure the board is a 9x9 grid.")
         return
 
-    # Solve the puzzle
-    
-    if solve_sudoku(board, steps):
-        result = "Solved Sudoku Board:\n" + print_board(board)
-    else:
-        result = "No solution exists for the given Sudoku puzzle."
-
-    # Write the result and steps to the output file
-    try:
-        with open(output_file, "w") as file:
-            file.write("\n".join(steps) + "\n\n" + result)
-        print(f"Steps and solved board written to {output_file}")
-    except Exception as e:
-        print(f"Error writing to output file: {e}")
-
-
-if __name__ == "__main__":
-    main()
 
 
 
