@@ -147,6 +147,51 @@ print(solve_sudoku(board))
 if len(board) != 9 or not all(len(row) == 9 for row in board):
     print("Invalid board format. Ensure the board is a 9x9 grid.")
         
+ef naked_single(board):
+    """Find an empty space on the board."""
+    for row in range(9):
+        for cell in range(9):
 
+            if isinstance(board[row][cell],set):
+                if len(board[row][cell]) == 1:
+                    return row, cell
+    return None,None
+def elimanation(board,row,cell):
+    only_one = naked_single  
+    
+    for item in board[row]:
+        if isinstance(item,set):
+            if len(item) > 1:
+                change =  list(item)
+                change.remove(only_one)
+                return  set(change)
+         
+    
+        return False
+
+
+def solve_sudoku(board):
+    """Solve the Sudoku puzzle using backtracking."""
+       
+    row, cell = naked_single(board)
+    # If no empty space, the board is solved
+    if row is None:
+        return True
+
+    
+    board[row][cell] =elimination(board,row,cell)
+    
+    if len(board[row][cell]) == 1:
+        convert_to_list = list(board[row][cell]) 
+        r = board[row]
+        board[row][cell] = convert_to_list[0] 
+    saved = board[row][cell] 
+
+
+
+    for i in range(1):
+        solve_sudoku(board)
+        
+    return board 
 
 
